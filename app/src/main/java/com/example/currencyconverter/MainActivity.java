@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     public void main(String[] args) throws Exception {
         Document  doc = loadTestDocument("http://www.floatrates.com/daily/usd.xml");
         System.out.println(doc);
-        System.out.println("Received the doc......................................................................................");
+        System.out.println("Received the doc.....................................................");
     }*/
 String rates_array = "{\"rates\":" +
         "{\"CAD\":1.5384," +
