@@ -28,11 +28,6 @@ public class MainActivity extends AppCompatActivity {
     String selection1;
     String selection2;
 
-   // ArrayList<String> arrayList = new ArrayList<>();
-    //ArrayAdapter<String> ratesAdapter;
-   // JSONObject jsonObject = new JSONObject();
-    //jsonObject.put("key", "value");
-
     Double rate1;
     Double rate2;
     //Setting up Button Function
