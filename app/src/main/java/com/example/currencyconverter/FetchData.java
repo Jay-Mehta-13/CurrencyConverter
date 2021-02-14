@@ -18,7 +18,7 @@ public class FetchData extends AsyncTask<Void,Void,Void> {
         URL url = null;
         try {
             //System.out.println("Before /////////////////////// ");
-            url = new URL("https://openexchangerates.org/api/latest.json");
+            url = new URL("https://free.currconv.com/api/v7/convert?q=USD_INR&compact=ultra&apiKey=92139c44c58c2a36a2d3");
             //System.out.println("after //////////////////////// ");
             //System.out.println("Before /////////////////////// ");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -47,42 +47,6 @@ public class FetchData extends AsyncTask<Void,Void,Void> {
         MainActivity.data.setText(this.data);
     }
 }
-//Generating Array for rates
-        /*String rates_array = "{\"rates\":" +
-                "{\"CAD\":1.5384," +
-                "\"HKD\":9.4171," +
-                "\"ISK\":155.8," +
-                "\"PHP\":58.343," +
-                "\"DKK\":7.438," +
-                "\"HUF\":357.18," +
-                "\"CZK\":25.772," +
-                "\"AUD\":1.5638," +
-                "\"RON\":4.8745," +
-                "\"SEK\":10.0868," +
-                "\"IDR\":16963.1," +
-                "\"INR\":88.404," +
-                "\"BRL\":6.4936," +
-                "\"RUB\":89.3792," +
-                "\"HRK\":7.5688," +
-                "\"JPY\":127.12," +
-                "\"THB\":36.271," +
-                "\"CHF\":1.0802," +
-                "\"SGD\":1.608," +
-                "\"PLN\":4.4975," +
-                "\"BGN\":1.9558," +
-                "\"TRY\":8.5254," +
-                "\"CNY\":7.8448," +
-                "\"NOK\":10.2595," +
-                "\"NZD\":1.6772," +
-                "\"ZAR\":17.7533," +
-                "\"USD\":1.2147," +
-                "\"MXN\":24.2037," +
-                "\"ILS\":3.9531," +
-                "\"GBP\":0.87755," +
-                "\"KRW\":1339.97," +
-                "\"MYR\":4.9104}," +
-                "\"base\":\"EUR\"," +
-                "\"date\":\"2021-02-11\"}";
 
         // Fetch JSON Array
         JSONObject jsonObject = null;

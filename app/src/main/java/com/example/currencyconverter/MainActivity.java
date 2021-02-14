@@ -12,12 +12,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
 import java.net.URL;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.w3c.dom.Document;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +45,70 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get Currency List from Currencyconverter.com
+        OkHttpClient currencyClient = new OkHttpClient();
+        String currencyURL = "https://free.currconv.com/api/v7/currencies?apiKey=92139c44c58c2a36a2d3";
+        Request currencyRequest = new Request.Builder()
+                .url(currencyURL)
+                .build();
+        currencyClient.newCall(currencyRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                //System.out.println("Not Working////////////////////////////////////////////////////////////////////////////////////");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String currencyResponse = response.body().string();
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Got The Currency List");
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+        //Populate the spinners from above list.
+
+        //Form URL and get the latest rate for that combo.
+
+        //Calculate and display
+
+
+//            private class GetUrlContentTask extends AsyncTask<String, Integer, String> {
+//                protected String doInBackground(String... urls) {
+//                    URL url = new URL(urls[0]);
+//                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//                    connection.setRequestMethod("GET");
+//                    connection.setDoOutput(true);
+//                    connection.setConnectTimeout(5000);
+//                    connection.setReadTimeout(5000);
+//                    connection.connect();
+//                    BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//                    String content = "", line;
+//                    while ((line = rd.readLine()) != null) {
+//                        content += line + "\n";
+//                    }
+//                    return content;
+//                }
+//
+//                protected void onProgressUpdate(Integer... progress) {
+//                }
+//
+//                protected void onPostExecute(String result) {
+//                    // this is executed on the main thread after the process is over
+//                    // update your UI here
+//                    displayMessage(result);
+//                }
+//            }
+
 
         //Setting up spinner lists.
         BaseCurrency = findViewById(R.id.BaseCurrency);
@@ -125,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(this,toastText, Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }}
 
 /*    private static Document loadTestDocument(String url) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -138,49 +211,3 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(doc);
         System.out.println("Received the doc......................................................");
     }*/
-String rates_array = "{\"rates\":" +
-        "{\"CAD\":1.5384," +
-        "\"HKD\":9.4171," +
-        "\"ISK\":155.8," +
-        "\"PHP\":58.343," +
-        "\"DKK\":7.438," +
-        "\"HUF\":357.18," +
-        "\"CZK\":25.772," +
-        "\"AUD\":1.5638," +
-        "\"RON\":4.8745," +
-        "\"SEK\":10.0868," +
-        "\"IDR\":16963.1," +
-        "\"INR\":88.404," +
-        "\"BRL\":6.4936," +
-        "\"RUB\":89.3792," +
-        "\"HRK\":7.5688," +
-        "\"JPY\":127.12," +
-        "\"THB\":36.271," +
-        "\"CHF\":1.0802," +
-        "\"SGD\":1.608," +
-        "\"PLN\":4.4975," +
-        "\"BGN\":1.9558," +
-        "\"TRY\":8.5254," +
-        "\"CNY\":7.8448," +
-        "\"NOK\":10.2595," +
-        "\"NZD\":1.6772," +
-        "\"ZAR\":17.7533," +
-        "\"USD\":1.2147," +
-        "\"MXN\":24.2037," +
-        "\"ILS\":3.9531," +
-        "\"GBP\":0.87755," +
-        "\"KRW\":1339.97," +
-        "\"MYR\":4.9104}," +
-        "\"base\":\"EUR\"," +
-        "\"date\":\"2021-02-11\"}";
-    JSONArray ratesJson;
-    {
-        try {
-            ratesJson = new JSONArray(rates_array);
-            System.out.println(ratesJson + "......................................................");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
